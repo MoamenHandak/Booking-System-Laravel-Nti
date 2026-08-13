@@ -720,6 +720,10 @@ body {
 
 /* RTL Support for Arabic Language Switch */
 
+[dir="rtl"] {
+    font-family: 'Cairo', 'Inter', system-ui, -apple-system, sans-serif;
+}
+
 [dir="rtl"] .admin-sidebar {
     left: auto;
     right: 0;

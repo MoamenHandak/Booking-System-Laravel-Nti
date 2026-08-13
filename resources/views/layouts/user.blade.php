@@ -284,6 +284,18 @@
                 <!-- Right Actions -->
                 <div class="d-flex align-items-center gap-2 user-actions">
 
+                    <!-- Dark Mode Toggle Button -->
+                    <button
+                        id="userThemeToggleBtn"
+                        class="language-btn d-flex align-items-center gap-2"
+                        type="button"
+                        title="Toggle Dark Mode"
+                        aria-label="Toggle Dark Mode"
+                    >
+                        <i class="fa-solid fa-moon text-warning" id="userThemeIcon"></i>
+                        <span id="userThemeText" data-i18n="theme_dark">المظهر الداكن</span>
+                    </button>
+
                     <!-- Language Switcher -->
                     <div class="dropdown language-switch-wrapper">
 

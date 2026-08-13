@@ -168,8 +168,8 @@
                                     <td colspan="7" class="text-center py-4 text-muted">
                                         <div class="py-2">
                                             <i class="fa-solid fa-box-open fs-3 mb-2 opacity-50"></i>
-                                            <p class="mb-0 small fw-semibold">No recent reservations available</p>
-                                            <span class="small text-secondary">New booking records will appear here once created.</span>
+                                            <p class="mb-0 small fw-semibold" data-i18n="no_bookings_available">No recent reservations available</p>
+                                            <span class="small text-secondary" data-i18n="no_bookings_desc">New booking records will appear here once created.</span>
                                         </div>
                                     </td>
                                 </tr>

@@ -12,11 +12,11 @@
     <!-- Page Header -->
     <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-4 gap-3">
         <div>
-            <h2 class="h4 fw-bold text-dark mb-1">Hotel Rooms</h2>
-            <p class="text-muted mb-0 small">Manage individual room inventory, room pricing, capacities, and availability status.</p>
+            <h2 class="h4 fw-bold text-dark mb-1" data-i18n="hotel_rooms">Hotel Rooms</h2>
+            <p class="text-muted mb-0 small" data-i18n="rooms_subtitle">Manage individual room inventory, room pricing, capacities, and availability status.</p>
         </div>
         <button class="btn btn-primary-blue" data-bs-toggle="modal" data-bs-target="#addRoomModal">
-            <i data-lucide="plus" style="width: 15px; height: 15px;"></i> Add New Room
+            <i data-lucide="plus" style="width: 15px; height: 15px;"></i> <span data-i18n="add_new_room">Add New Room</span>
         </button>
     </div>
 
@@ -29,12 +29,12 @@
                 <div class="col-12 col-md-4">
                     <div class="search-input-group w-100">
                         <i data-lucide="search" style="width: 16px; height: 16px;"></i>
-                        <input type="text" name="search" class="form-control" placeholder="Search room type or hotel..." value="{{ request('search') }}">
+                        <input type="text" name="search" class="form-control" placeholder="Search room type or hotel..." data-i18n-placeholder="search_room_placeholder" value="{{ request('search') }}">
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-md-3">
                     <select name="hotel_id" class="form-select" onchange="this.form.submit()">
-                        <option value="">All Hotels</option>
+                        <option value="" data-i18n="all_hotels">All Hotels</option>
                         @foreach ($hotels as $hotel)
                             <option value="{{ $hotel->id }}" {{ request('hotel_id') == $hotel->id ? 'selected' : '' }}>
                                 {{ $hotel->name }}
@@ -44,20 +44,20 @@
                 </div>
                 <div class="col-12 col-sm-6 col-md-3">
                     <select name="is_available" class="form-select" onchange="this.form.submit()">
-                        <option value="">All Room Statuses</option>
-                        <option value="1" {{ request('is_available') === '1' ? 'selected' : '' }}>Available</option>
-                        <option value="0" {{ request('is_available') === '0' ? 'selected' : '' }}>Unavailable</option>
+                        <option value="" data-i18n="all_statuses">All Room Statuses</option>
+                        <option value="1" {{ request('is_available') === '1' ? 'selected' : '' }} data-i18n="status_available">Available</option>
+                        <option value="0" {{ request('is_available') === '0' ? 'selected' : '' }} data-i18n="status_occupied">Unavailable</option>
                     </select>
                 </div>
                 <div class="col-auto">
-                    <button type="submit" class="btn btn-secondary-light btn-sm">Filter</button>
+                    <button type="submit" class="btn btn-secondary-light btn-sm" data-i18n="filter">Filter</button>
                     @if(request('search') || request('hotel_id') || request('is_available') !== null)
-                        <a href="{{ route('admin.rooms.index') }}" class="btn btn-link text-decoration-none btn-sm">Reset</a>
+                        <a href="{{ route('admin.rooms.index') }}" class="btn btn-link text-decoration-none btn-sm" data-i18n="reset">Reset</a>
                     @endif
                 </div>
                 <div class="col-12 col-sm-6 col-md-2 ms-auto text-end">
                     <span class="text-muted small">
-                        Total Rooms: <strong class="text-dark">{{ $rooms->total() }}</strong>
+                        <span data-i18n="total_rooms">Total Rooms:</span> <strong class="text-dark">{{ $rooms->total() }}</strong>
                     </span>
                 </div>
             </div>
@@ -72,13 +72,13 @@
             <table class="table table-custom align-middle" id="roomsTable">
                 <thead>
                     <tr>
-                        <th style="width: 70px;">Image</th>
-                        <th>Room Type / #</th>
-                        <th>Hotel</th>
-                        <th>Price / Night</th>
-                        <th>Capacity</th>
-                        <th>Status</th>
-                        <th class="text-end">Actions</th>
+                        <th style="width: 70px;" data-i18n="icon">Image</th>
+                        <th data-i18n="room_type">Room Type / #</th>
+                        <th data-i18n="hotel">Hotel</th>
+                        <th data-i18n="night_rate">Price / Night</th>
+                        <th data-i18n="capacity">Capacity</th>
+                        <th data-i18n="status">Status</th>
+                        <th class="text-end" data-i18n="actions">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -107,16 +107,16 @@
                             <td>
                                 <span class="text-muted small">
                                     <i data-lucide="users" style="width: 13px; height: 13px;" class="me-1"></i>
-                                    {{ $room->capacity }} Guests
+                                    {{ $room->capacity }}
                                 </span>
                             </td>
                             <td>
                                 @if ($room->is_available)
-                                    <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1" data-i18n="status_available">
                                         Available
                                     </span>
                                 @else
-                                    <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1">
+                                    <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1" data-i18n="status_occupied">
                                         Occupied / Unavailable
                                     </span>
                                 @endif
@@ -126,14 +126,14 @@
                                     <button class="btn btn-sm btn-outline-secondary" 
                                             data-bs-toggle="modal" 
                                             data-bs-target="#editRoomModal{{ $room->id }}">
-                                        <i data-lucide="edit-3" style="width: 14px; height: 14px;"></i> Edit
+                                        <i data-lucide="edit-3" style="width: 14px; height: 14px;"></i> <span data-i18n="edit">Edit</span>
                                     </button>
                                     <form action="{{ route('admin.rooms.destroy', $room) }}" method="POST" class="d-inline"
                                           onsubmit="return confirm('Are you sure you want to delete this room?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-outline-danger">
-                                            <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i> Delete
+                                            <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i> <span data-i18n="delete">Delete</span>
                                         </button>
                                     </form>
                                 </div>
@@ -148,13 +148,13 @@
                                         @csrf
                                         @method('PUT')
                                         <div class="modal-header bg-dark text-white">
-                                            <h5 class="modal-title fw-bold fs-6 mb-0">Edit Room: {{ $room->type }}</h5>
+                                            <h5 class="modal-title fw-bold fs-6 mb-0"><span data-i18n="edit_room">Edit Room</span>: {{ $room->type }}</h5>
                                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body p-4">
                                             <div class="row g-3">
                                                 <div class="col-md-6">
-                                                    <label class="form-label fw-semibold">Hotel</label>
+                                                    <label class="form-label fw-semibold" data-i18n="hotel">Hotel</label>
                                                     <select name="hotel_id" class="form-select" required>
                                                         @foreach ($hotels as $hotel)
                                                             <option value="{{ $hotel->id }}" {{ $room->hotel_id == $hotel->id ? 'selected' : '' }}>
@@ -164,38 +164,38 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label class="form-label fw-semibold">Room Type / Name</label>
+                                                    <label class="form-label fw-semibold" data-i18n="room_type">Room Type / Name</label>
                                                     <input type="text" name="type" class="form-control" value="{{ $room->type }}" required>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label class="form-label fw-semibold">Price per Night ($)</label>
+                                                    <label class="form-label fw-semibold" data-i18n="night_rate">Price per Night ($)</label>
                                                     <input type="number" step="0.01" name="price" class="form-control" value="{{ $room->price }}" required>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label class="form-label fw-semibold">Capacity (Guests)</label>
+                                                    <label class="form-label fw-semibold" data-i18n="capacity">Capacity (Guests)</label>
                                                     <input type="number" name="capacity" class="form-control" value="{{ $room->capacity }}" required>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label class="form-label fw-semibold">Room Image</label>
+                                                    <label class="form-label fw-semibold" data-i18n="icon">Room Image</label>
                                                     <input type="file" name="image" class="form-control">
                                                 </div>
                                                 <div class="col-md-6 d-flex align-items-center">
                                                     <div class="form-check mt-4">
                                                         <input class="form-check-input" type="checkbox" name="is_available" value="1" id="isAvail{{ $room->id }}" {{ $room->is_available ? 'checked' : '' }}>
-                                                        <label class="form-check-label fw-semibold" for="isAvail{{ $room->id }}">
+                                                        <label class="form-check-label fw-semibold" for="isAvail{{ $room->id }}" data-i18n="availability">
                                                             Is Room Available for Booking
                                                         </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
-                                                    <label class="form-label fw-semibold">Description</label>
+                                                    <label class="form-label fw-semibold" data-i18n="description">Description</label>
                                                     <textarea name="description" class="form-control" rows="3">{{ $room->description }}</textarea>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary-light" data-bs-dismiss="modal">Cancel</button>
-                                            <button type="submit" class="btn btn-primary-blue">Update Room</button>
+                                            <button type="button" class="btn btn-secondary-light" data-bs-dismiss="modal" data-i18n="cancel">Cancel</button>
+                                            <button type="submit" class="btn btn-primary-blue" data-i18n="update_room">Update Room</button>
                                         </div>
                                     </form>
                                 </div>
@@ -206,8 +206,8 @@
                             <td colspan="7" class="text-center py-4 text-muted">
                                 <div class="py-2">
                                     <i data-lucide="bed-double" style="width: 28px; height: 28px;" class="mb-2 opacity-50"></i>
-                                    <p class="mb-0 small fw-semibold">No rooms available</p>
-                                    <span class="small text-secondary">Added room inventory will appear here.</span>
+                                    <p class="mb-0 small fw-semibold" data-i18n="no_rooms_available">No rooms available</p>
+                                    <span class="small text-secondary" data-i18n="no_rooms_desc">Added room inventory will appear here.</span>
                                 </div>
                             </td>
                         </tr>
@@ -229,53 +229,53 @@
             <form action="{{ route('admin.rooms.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title fw-bold fs-6 mb-0">Add New Room</h5>
+                    <h5 class="modal-title fw-bold fs-6 mb-0" data-i18n="add_new_room">Add New Room</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">Hotel</label>
+                            <label class="form-label fw-semibold" data-i18n="hotel">Hotel</label>
                             <select name="hotel_id" class="form-select" required>
-                                <option value="">Select Hotel</option>
+                                <option value="" data-i18n="all_hotels">Select Hotel</option>
                                 @foreach ($hotels as $hotel)
                                     <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">Room Type / Name</label>
+                            <label class="form-label fw-semibold" data-i18n="room_type">Room Type / Name</label>
                             <input type="text" name="type" class="form-control" placeholder="e.g. Deluxe Sea View Suite" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">Price per Night ($)</label>
+                            <label class="form-label fw-semibold" data-i18n="night_rate">Price per Night ($)</label>
                             <input type="number" step="0.01" name="price" class="form-control" placeholder="150.00" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">Capacity (Guests)</label>
+                            <label class="form-label fw-semibold" data-i18n="capacity">Capacity (Guests)</label>
                             <input type="number" name="capacity" class="form-control" value="2" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">Room Image</label>
+                            <label class="form-label fw-semibold" data-i18n="icon">Room Image</label>
                             <input type="file" name="image" class="form-control">
                         </div>
                         <div class="col-md-6 d-flex align-items-center">
                             <div class="form-check mt-4">
                                 <input class="form-check-input" type="checkbox" name="is_available" value="1" id="isAvailNew" checked>
-                                <label class="form-check-label fw-semibold" for="isAvailNew">
+                                <label class="form-check-label fw-semibold" for="isAvailNew" data-i18n="availability">
                                     Is Room Available for Booking
                                 </label>
                             </div>
                         </div>
                         <div class="col-12">
-                            <label class="form-label fw-semibold">Description</label>
+                            <label class="form-label fw-semibold" data-i18n="description">Description</label>
                             <textarea name="description" class="form-control" rows="3" placeholder="Room amenities, bed type, view..."></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary-light" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary-blue">Save Room</button>
+                    <button type="button" class="btn btn-secondary-light" data-bs-dismiss="modal" data-i18n="cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary-blue" data-i18n="save_room">Save Room</button>
                 </div>
             </form>
         </div>

@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Admin Dashboard') — GrandStay System</title>
     
-    <!-- Google Fonts: Inter -->
+    <!-- Google Fonts: Inter & Cairo -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -60,12 +60,12 @@
         <!-- Footer -->
         <footer class="admin-footer">
             <div>
-                &copy; {{ date('Y') }} <span class="fw-semibold text-dark">GrandStay Hotels</span>. Editorial Booking Dashboard.
+                &copy; {{ date('Y') }} <span class="fw-semibold text-dark" data-i18n="grandstay">GrandStay Hotels</span>. <span data-i18n="footer_copyright">Editorial Booking Dashboard.</span>
             </div>
             <div class="d-flex gap-4">
-                <a href="#" class="text-secondary text-decoration-none">Privacy Policy</a>
-                <a href="#" class="text-secondary text-decoration-none">Terms</a>
-                <a href="#" class="text-secondary text-decoration-none">System Support</a>
+                <a href="#" class="text-secondary text-decoration-none" data-i18n="privacy_policy">Privacy Policy</a>
+                <a href="#" class="text-secondary text-decoration-none" data-i18n="terms">Terms</a>
+                <a href="#" class="text-secondary text-decoration-none" data-i18n="system_support">System Support</a>
             </div>
         </footer>
     </div>

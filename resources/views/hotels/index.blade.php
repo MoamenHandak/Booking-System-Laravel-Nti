@@ -202,19 +202,6 @@
             </p>
         </div>
 
-        {{-- Dark / Light Mode --}}
-        <button
-            id="themeToggleBtn"
-            class="theme-toggle-btn d-flex align-items-center gap-2"
-            type="button"
-        >
-            <i class="fa-solid fa-moon text-warning" id="themeIcon"></i>
-
-            <span id="themeText" data-i18n="theme_dark">
-                المظهر الداكن
-            </span>
-        </button>
-
     </div>
 
     {{-- Search --}}
@@ -588,61 +575,3 @@
 </div>
 
 @endsection
-
-@push('scripts')
-
-<script>
-
-    const toggleBtn = document.getElementById('themeToggleBtn');
-    const themeIcon = document.getElementById('themeIcon');
-
-    const currentTheme =
-        localStorage.getItem('theme') || 'light';
-
-    document.documentElement.setAttribute(
-        'data-theme',
-        currentTheme
-    );
-
-    updateToggleUI(currentTheme);
-
-    toggleBtn.addEventListener('click', function () {
-
-        const theme =
-            document.documentElement.getAttribute('data-theme');
-
-        const newTheme =
-            theme === 'dark' ? 'light' : 'dark';
-
-        document.documentElement.setAttribute(
-            'data-theme',
-            newTheme
-        );
-
-        localStorage.setItem(
-            'theme',
-            newTheme
-        );
-
-        updateToggleUI(newTheme);
-
-    });
-
-    function updateToggleUI(theme) {
-
-        if (theme === 'dark') {
-
-            themeIcon.className =
-                'fa-solid fa-sun text-warning';
-
-        } else {
-
-            themeIcon.className =
-                'fa-solid fa-moon text-dark';
-
-        }
-    }
-
-</script>
-
-@endpush

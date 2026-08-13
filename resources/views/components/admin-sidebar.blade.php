@@ -4,7 +4,7 @@
         <div class="brand-icon">
             <i class="fa-solid fa-hotel fs-6"></i>
         </div>
-        <span>GrandStay</span>
+        <span data-i18n="grandstay">GrandStay</span>
     </a>
 
     <!-- Navigation -->

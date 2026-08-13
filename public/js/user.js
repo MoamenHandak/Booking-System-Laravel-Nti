@@ -260,8 +260,57 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.getItem('user_lang') || 'ar';
 
     switchUserLang(currentLang, false);
+    initUserTheme();
 
 });
+
+function initUserTheme() {
+    const currentTheme = localStorage.getItem('user_theme') || localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    updateUserThemeUI(currentTheme);
+
+    const toggleBtns = [
+        document.getElementById('userThemeToggleBtn'),
+        document.getElementById('themeToggleBtn')
+    ];
+
+    toggleBtns.forEach(btn => {
+        if (btn) {
+            btn.addEventListener('click', function () {
+                const theme = document.documentElement.getAttribute('data-theme') || 'light';
+                const newTheme = theme === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('user_theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateUserThemeUI(newTheme);
+            });
+        }
+    });
+}
+
+function updateUserThemeUI(theme) {
+    const activeTheme = theme || document.documentElement.getAttribute('data-theme') || 'light';
+    const currentLang = localStorage.getItem('user_lang') || 'ar';
+    const dict = userI18nDict[currentLang] || userI18nDict['ar'];
+
+    const icons = [document.getElementById('userThemeIcon'), document.getElementById('themeIcon')];
+    icons.forEach(icon => {
+        if (icon) {
+            icon.className = activeTheme === 'dark' ? 'fa-solid fa-sun text-warning' : 'fa-solid fa-moon text-warning';
+        }
+    });
+
+    const textEls = [document.getElementById('userThemeText'), document.getElementById('themeText')];
+    textEls.forEach(textEl => {
+        if (textEl) {
+            const key = activeTheme === 'dark' ? 'theme_light' : 'theme_dark';
+            textEl.setAttribute('data-i18n', key);
+            if (dict && dict[key]) {
+                textEl.textContent = dict[key];
+            }
+        }
+    });
+}
 
 
 function switchUserLang(lang, showNotification = true) {
@@ -322,23 +371,9 @@ function switchUserLang(lang, showNotification = true) {
 
         });
 
+    // Update theme toggle UI text if present
+    updateUserThemeUI();
 
-
-        // 
-    const themeText = document.getElementById('themeText');
-
-            if (themeText) {
-                const currentTheme =
-                    document.documentElement.getAttribute('data-theme') || 'light';
-
-                themeText.setAttribute(
-                    'data-i18n',
-                    currentTheme === 'dark' ? 'theme_light' : 'theme_dark'
-                );
-
-                themeText.textContent =
-                    dict[currentTheme === 'dark' ? 'theme_light' : 'theme_dark'];
-            }
     // Change Bootstrap RTL / LTR
     const bootstrapLink =
         document.querySelector(
